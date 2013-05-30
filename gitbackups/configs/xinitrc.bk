@@ -1,0 +1,25 @@
+#!/bin/sh
+
+
+# start some nice programs
+
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+	for f in /etc/X11/xinit/xinitrc.d/* ; do
+		[ -x "$f" ] && . "$f"
+	done
+	unset f
+fi
+
+exec /usr/bin/i3 &&
+
+sleep 8 & conky -d &&
+sleep 10 & vidalia &&
+sleep 9 & konsole &&
+sleep 9 & compton --config /home/line/.compton.conf -b &&
+xautolock -locker "i3lock -i /home/line/linux.png" -time 1 &&
+sleep 10 & sh /home/line/.wallpapers/wallpapers.sh 
+
+
+
+

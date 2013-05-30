@@ -1,0 +1,132 @@
+#!/bin/bash
+
+# a bash script to upload text from cli or files to ubuntu's paste platform
+
+echo -e "upload to paste.ubuntu.com"
+
+#Poster field can be set to a static value here 
+#set to username you want to use
+# if it doesnt equal 0 script will skip catching username 
+
+poster="mrgray"
+
+# part of suffix for temp file 
+i=0
+
+#while loop variable - shouldn't be changed
+x=1
+
+# make sure tmp dne
+
+for f in tmp00*
+do
+	if [ -f tmp00$i.txt ]; then
+	 let i=i+1 
+	fi
+done
+
+# enter a username for the 'poster' field
+
+
+if  [ "$poster" = "default" ] ; then 
+echo "poster set as $poster"
+read -p "enter a user name to post as
+" poster
+else echo -e "user name set as $poster"
+fi
+
+# text or file , loops until one is chosen 
+# maybe an exit option would be good
+
+while [ $x = "1" ] ; do
+
+
+# 1 2 and 3 are set to syntax=text
+# there are more options possible, &&syntax=....&&
+
+read -p "upload choices
+	1- single line of text 	submits on enter 
+	2- file 		 
+	3- text lines 	 	submits on ctl+d
+
+" tf
+
+case $tf in 
+
+# type in what you want to upload
+
+1 | text | Text | TEXT )
+	#where's waldo and
+	read -p "enter the text you wish to upload
+" fie1
+	#the beef	
+	curl -L  --request POST --data "poster=$poster&&syntax=text&&content=$fie1" http://paste.ubuntu.com/ -o ubtmp00$i.txt
+
+	#turn the data sent back into a readable url
+	echo -ne "http://paste.ubuntu.com/"
+		cat ubtmp00$i.txt | grep pturl | awk '{print $3}' | uniq | cut --delimiter="/" -f2
+	rm ubtmp00*
+x=0
+;;
+
+#upload any file that outputs something on cat
+
+2 | FILE | File | file )
+
+	#list the files in the dir 
+	ls -a
+
+	#enter the file name
+	read -p "enter the name of a text file in this directory that you wish to upload
+" fie2
+	#variable used for content field
+	export m2="$(cat $fie2)"
+	
+	#actual posting of data
+	curl -L  --request POST --data "poster=$poster&&syntax=text&&content=$m2" http://paste.ubuntu.com/ -o ubtmp00$i.txt				
+	
+	#echo back the filename of what we uploaded - nescessary?
+	if [ -f $fie2 ] ; then
+	echo -ne "you uploaded $fie2
+ to "
+	fi
+
+	#turn the data sent back into a readable url
+	echo -ne "http://paste.ubuntu.com/"
+		cat ubtmp00$i.txt | grep pturl | awk '{print $3}' | uniq | cut --delimiter="/" -f2
+	rm ubtmp00*
+x=0
+;;
+3 )
+	#cat to a file for multiple line support (probably easier way to go about this)
+	echo -e " enter text , end with ctrl+d 
+"
+	cat > ubtmpcat00$i
+	export m3="$(cat ubtmpcat00$i)"
+	
+	#the beef	
+	curl -L  --request POST --data "poster=$poster&&syntax=text&&content=$m3" http://paste.ubuntu.com/ -o ubtmp00$i.txt
+
+	#turn the data sent back into a readable url
+	echo -ne "http://paste.ubuntu.com/"
+		cat ubtmp00$i.txt | grep pturl | awk '{print $3}' | uniq | cut --delimiter="/" -f2
+	#clean up temp files
+	rm ubtmp00*
+	rm ubtmpcat00*
+x=0	
+;;
+#4 )
+#add a new option here
+
+#x=0
+#;;
+* )
+
+	echo not valid selection , 1 for text or 2 for file
+
+;;
+
+esac 
+done
+
+

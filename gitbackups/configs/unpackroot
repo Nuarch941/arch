@@ -1,0 +1,19 @@
+#/bin/bash
+#run as su
+#might also need to cp xinit to reg users homedir
+
+cp bashaliasesroot ~/.bash_aliases
+cp bashrcroot ~/.bashrc
+
+cp conky.conf /etc/conky/conky.conf
+cp etcissue /etc/issue
+
+cp fluxrand* /usr/local/bin/
+cp up /usr/local/bin/
+cp ubpaste /usr/local/bin/
+cp whodis /usr/local/bin/
+
+cp metak-e17 /usr/share/fluxbox/styles/
+
+ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules
+cp i3status.confb /etc/i3status.conf

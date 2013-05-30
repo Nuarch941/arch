@@ -1,0 +1,25 @@
+#aliases
+
+alias ping='ping -c4'
+alias ..='cd ..'
+alias ls='ls --color=auto'
+alias la='ls -a --color=auto'
+alias cp='cp -i'
+alias mv='mv -i'
+alias ps='ps axu'
+alias psg='ps axu | grep'
+
+alias take7='ssh root@192.73.234.213 -p42045'
+alias take7proxy='ssh l8er@192.73.234.213 -p42045 -fND localhost:7777'
+alias wili='wicd-cli -Sly'
+alias wilic='wicd-cli -ycn'
+
+alias reload='source ~/.bashrc'
+alias music='clementine'
+
+alias home='cd ~/'
+alias documents='cd ~/Documents'
+alias downloads='cd ~/Downloads'
+alias books='cd ~/eBooks'
+alias images='cd ~/Images'
+#alias getflux='xinit /usr/bin/fluxbox'

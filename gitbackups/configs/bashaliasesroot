@@ -1,0 +1,19 @@
+#aliases
+
+alias ..='cd ..'
+alias ls='ls --color=auto'
+alias la='ls -a --color=auto'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias take7='ssh root@192.73.234.213 -p42045'
+
+
+alias reload='source ~/.bashrc'
+alias music='banshee'
+
+alias home='cd ~/'
+alias documents='cd ~/Documents'
+alias downloads='cd ~/Downloads'
+alias books='cd ~/eBooks'
+alias images='cd ~/Images'

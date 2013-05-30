@@ -1,0 +1,107 @@
+Blue='\e[0;34m'         # Blue
+Cyan='\e[0;36m'         # Cyan
+White='\e[0;37m'        # White
+i=0
+
+usage="$(basename "$0") [-b][-c][-h][-s]
+
+options:
+	-h  show this help text
+	-s  take a screenshot with info and count
+	-c  screenshot with a countdown, info removed
+	-b  screenshot blank - no info or count
+"
+
+
+while getopts bchs option; do
+  case "$option" in
+    h ) echo "$usage"
+       exit
+       ;;
+    c )
+	for f in ssimg*
+	do
+  		if [ -f ssimg$i.jpg ] ; then
+			let i=i+1
+  		fi
+	done
+	echo -ne "\n\e[1;33mScreenshot in " ; echo -ne "3 ... " ; sleep 1 && echo -ne "2 ... " ; sleep 1 && echo -ne "1 ... "  ; sleep 1 ;
+	echo -e "\e[1;37mssimg$i.jpg"
+	import -window root ssimg$i.jpg
+	exit 1
+
+       ;;
+    
+    s )
+
+	echo -e " \e[1;36m              "
+	echo -e "\e[1;36m               #"
+	echo -e "\e[1;36m              ###  " "${Blue}         User: \t "${White}`whoami` ;                                              
+	echo -e "\e[1;36m            .##### " "${Blue}         Host: \t "${White}"$HOSTNAME" ;
+	echo -e "\e[1;36m            ######." "${Blue}         Today :\t"${White} `date |awk '{print$1,$2,$3}'`;   
+	echo -e "\e[1;36m           .  *#### " "${Blue}        Distro: \t"${White}" ArchLinux"
+	echo -e "\e[1;36m           ##c..#### " "${Blue}       Kernel:\t"${White} `uname -r`; 
+	echo -e "\e[1;36m          ##########  " "${Blue}      CPU:   \t"${White} ` cat /proc/cpuinfo |grep 'model name' |uniq | awk '{print$6,$8,$9,$10,$11}'` ;              
+	echo -e "\e[1;36m         ####\e[1;34m###\e[1;36m##### " "${Blue}      Load:\t"${White} `cat /proc/loadavg | awk '{print$1,$2,$3}'`;
+	echo -e "\e[1;36m        ##\e[1;34m##########\e[1;36m## " "${Blue}     Uptime:\t"${White} `up`;     
+	echo -e "\e[1;34m       ######i  i######"                 "${Blue}     IP:   \t"${White} `ifconfig wlan0 |grep "192.168.*.*"  |awk '{print$2}'` ;
+	echo -e "\e[1;34m      ######      ### *'."                 "${Blue}   Ram:   \t"${Cyan} `free -h |grep 'buffers/cache' | cut -d: -f2 |awk '{print$1}'`${White} / `free -h |grep Mem | cut -d: -f2 |awk '{print$1}'`
+	echo -e "\e[1;34m     ######        ###c.   "              "${Blue} Temp:   \t"${White}" CPU1 -" `cat /sys/bus/acpi/devices/LNXCPU\:00/thermal_cooling/subsystem/thermal_zone1/temp |cut -c 1-2` "c | CPU2 - " `cat /sys/bus/acpi/devices/LNXCPU\:01/thermal_cooling/subsystem/thermal_zone0/temp |cut -c 1-2`"c"
+	echo -e "\e[1;34m    #####t          t#####   "    
+	
+	echo -ne "\n\e[1;33mScreenshot in " ; echo -ne "3 ... " ; sleep 1 && echo -ne "2 ... " ; sleep 1 && echo -ne "1 ... "  ; sleep 1 ;
+
+
+	for f in ssimg*
+	do
+ 	 if [ -f ssimg$i.jpg ] ; then
+		let i=i+1
+			#loops through every existing file on a 321 count, dont do this	#echo -ne "Screenshot in" ; sleep 1 && echo -ne "3 ... " ; sleep 1 && echo -ne "2 ... " ; sleep 1 && echo -ne "1 ... "  ; sleep 1 && echo ssimg$i.jpg
+		
+		#import -window root ssimg$i.jpg
+	
+ 	 fi
+	done
+	
+	echo -e "\e[1;37mssimg$i.jpg"
+	
+	import -window root ssimg$i.jpg
+
+exit 1
+
+	;;
+     b )
+	for f in ssimg*
+	do
+  		if [ -f ssimg$i.jpg ] ; then
+			let i=i+1
+  		fi
+	done
+    	echo -e "\e[1;37mssimg$i.jpg"
+	import -window root ssimg$i.jpg
+	exit 1
+	;;
+     (? | * ) printf "illegal option: '%s'\n" "$OPTARG" >&2
+       echo "$usage" >&2
+       exit 1
+       ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+
+
+echo -e " \e[1;36m              ."
+echo -e "\e[1;36m              .#."
+echo -e "\e[1;36m              ###  " "${Blue}         User: \t "${White}`whoami` ;                                              
+echo -e "\e[1;36m            .##### " "${Blue}         Host: \t "${White}"$HOSTNAME" ;
+echo -e "\e[1;36m            ######." "${Blue}         Today :\t"${White} `date |awk '{print$1,$2,$3}'`;   
+echo -e "\e[1;36m           .  *#### " "${Blue}        Distro: \t"${White}" ArchLinux"
+echo -e "\e[1;36m           ##c..#### " "${Blue}       Kernel:\t"${White} `uname -r`; 
+echo -e "\e[1;36m          ##########  " "${Blue}      CPU:   \t"${White} ` cat /proc/cpuinfo |grep 'model name' |uniq | awk '{print$6,$8,$9,$10,$11}'` ;              
+echo -e "\e[1;36m         ####\e[1;34m###\e[1;36m##### " "${Blue}      Load:\t"${White} `cat /proc/loadavg | awk '{print$1,$2,$3}'`;
+echo -e "\e[1;36m        ##\e[1;34m##########\e[1;36m## " "${Blue}     Uptime:\t"${White} `up`;     
+echo -e "\e[1;34m       ######i  i######"                 "${Blue}     IP:   \t"${White} `ifconfig wlan0 |grep "192.168.*.*"  |awk '{print$2}'` ;
+echo -e "\e[1;34m      ######      ### *'."                 "${Blue}   Ram:   \t"${Cyan} `free -h |grep 'buffers/cache' | cut -d: -f2 |awk '{print$1}'`${White} / `free -h |grep Mem | cut -d: -f2 |awk '{print$1}'`
+echo -e "\e[1;34m    .#######      ####c.   "              "${Blue} Temp:   \t"${White}" CPU1 -" `cat /sys/bus/acpi/devices/LNXCPU\:00/thermal_cooling/subsystem/thermal_zone1/temp |cut -c 1-2` "c | CPU2 - " `cat /sys/bus/acpi/devices/LNXCPU\:01/thermal_cooling/subsystem/thermal_zone0/temp |cut -c 1-2`"c"
+echo -e "\e[1;34m   ;#####t.        .t#####;   "    

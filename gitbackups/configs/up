@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#custom uptime output
+
+export uptime=$(cat /proc/uptime |cut -d. -f1)
+secday=86400
+secdays=172800
+
+if [ $uptime -gt $secday ] ; then
+	awk '{printf("up %d day + %02dh %02dm %02ds",($1/60/60/24),($1/60/60%24),($1/60%60),($1%60))}' /proc/uptime
+	echo""
+elif [ $uptime -gt $secdays ] ; then
+	awk '{printf("up %d days + %02dh %02dm %02ds",($1/60/60/24),($1/60/60%24),($1/60%60),($1%60))}' /proc/uptime
+	echo""
+else
+	awk '{printf("up %02dh %02dm %02ds",($1/60/60%24),($1/60%60),($1%60))}' /proc/uptime
+	echo""
+fi

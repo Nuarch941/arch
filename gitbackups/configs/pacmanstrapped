@@ -1,0 +1,39 @@
+pacman -S base base-devel wicd-gtk wicd-cli xorg-server xorg-server-utils xorg-xinit xorg-xauth xrandr ttf-freefont ttf-dejavu ttf-droid kdebase-konsole 
+lm_sensors conky makepkg alsa-utils ttf-cheapskate ttf-inconsolata ttf-ubuntu-font-family ttf-liberation mesa xf86-video-vesa xf86-video-intel gimp 
+wireshark-gtk viewnior firefox chromium gtk-chtheme gtk-theme-switch2 galculator vlc dmenu mousepad kdebase-dolphin clementine top htop xautolock git 
+irssi vidalia python i3lock xautolock minitube youtube-dl feh gparted openssh
+
+
+# xf86-input-synaptics
+
+#i3-wm i3status i3lock
+#fluxbox
+#enlightenment17
+
+
+####
+#aur
+####
+
+#package-query yaourt 
+#ttf-funfonts ttf-tahoma omg-suite compton
+#
+#
+
+
+
+### config files
+#.i3/config /etc/i3status.conf
+#.xinitrc
+#conky
+#.bashrc
+#.bash_aliases
+#compton config
+
+#.wallpapers
+
+#timezone language keyboard hostname [change network adapters to old naming convention]
+
+#fluxbox menuconfig and theme (might not go back to fluxbox, low priority)
+#	~/.fluxbox/menu	   /usr/share/themes/metabox (or something close)
+# xbindkeys 

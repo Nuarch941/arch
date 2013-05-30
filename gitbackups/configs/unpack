@@ -1,0 +1,3 @@
+cp bashaliasuser ~/.bash_aliases
+cp bashrcuser ~/.bashrc
+cp fluxmenu ~/.fluxbox/menu
